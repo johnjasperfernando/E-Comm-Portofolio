@@ -2,10 +2,9 @@ import React from "react";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { Link } from "react-router-dom";
 import "./header.styles.scss";
-import SingInAndSingUp from "../signInAndSingUp/SignInAndSingOut.Component";
+import { auth } from "../FireBase/FireBase.utill";
 
-
-const Header = () => (
+const Header = ({ currentUser }) => (
   <div className="header">
     <Link to="/">
       <Logo className="logo" />
@@ -17,9 +16,13 @@ const Header = () => (
       <Link className="option" to="/shop">
         CONTACT
       </Link>
-      <Link className="option" to="/singin">
-        SIGN IN
-      </Link>
+      {currentUser ? (
+        <div className="option" onClick={() =>auth.signOut()}>SIGN OUT</div>
+      ) : (
+        <Link className="option" to="/singin">
+          SIGN IN
+        </Link>
+      )}
     </div>
   </div>
 );
